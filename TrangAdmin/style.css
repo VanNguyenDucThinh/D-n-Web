@@ -1,0 +1,226 @@
+:root {
+  --main-bg-color: rgb(47, 79, 79);
+  --sub-bg-color: #d3d5d8;
+  --top-height: 80px;
+  --hover-color: rgb(71, 245, 245);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.admin {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.row-grid {
+  display: grid;
+  justify-content: start;
+}
+
+/* Main admin layout*/
+.admin .row-grid {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  height: 100%;
+  transition: grid-template-columns 0.3s ease;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  background-color: var(--main-bg-color);
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.admin-sidebar.collapsed {
+  width: 0;
+}
+
+.admin-sidebar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  padding: 10px 8px;
+  height: 150px;
+  position: relative;
+}
+
+/* Logo section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.logo-section img {
+  width: 35px;
+}
+
+.logo-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: whitesmoke;
+  letter-spacing: 0.5px;
+}
+
+/* Admin role */
+.admin-role {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e0ffff;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+  font-weight: 600;
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.admin-role i {
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+/* Sidebar content */
+.admin-sidebar-content {
+  padding: 40px 0 80px 15px;
+  color: whitesmoke;
+  text-align: left;
+}
+
+.admin-sidebar-content ul li a i {
+  margin-right: 8px;
+}
+
+.admin-sidebar-content > ul > li {
+  margin: 10px 0;
+}
+
+.admin-sidebar-content > ul > li > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: whitesmoke;
+  padding: 10px 0 10px 5px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar-content > ul > li:hover {
+  background-color: var(--hover-color);
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+  padding-left: 10px;
+}
+
+/* Submenu (book-menu) */
+.book-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.book-menu.active {
+  max-height: 300px;
+}
+
+.book-menu li {
+  padding-left: 20px;
+}
+
+.book-menu li a {
+  color: whitesmoke;
+  font-size: 15px;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.book-menu li:hover a {
+  color: var(--hover-color);
+}
+
+/* Logout section */
+.logout-section {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.logout-section a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cccccc;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.logout-section a:hover {
+  color: var(--hover-color);
+}
+
+.logout-section i {
+  font-size: 18px;
+}
+
+/* Admin content */
+.admin-content {
+  background-color: var(--sub-bg-color);
+  min-height: 100%;
+  height: 100%;
+  overflow-y: auto;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin .row-grid {
+    grid-template-columns: 0 1fr; /* Sidebar ẩn, content 100% */
+  }
+  .admin-sidebar {
+    width: 0;
+  }
+  .admin-sidebar.open {
+    width: 100%; /* Khi mở, chiếm toàn bộ nếu cần */
+  }
+}
