@@ -23,14 +23,14 @@
         </div>
         <div>
             <div class="QuangCao">
-                <div><i class="fa-regular fa-circle-left" style="font-size:30px;"></i></div>
+                <div><i class="fa-regular fa-circle-left" style="font-size:30px;" onclick="prevImg()"></i></div>
                 <img src="/TrangUser/Pictures/SGU logo.jpg" alt="Sách">
-                <div><i class="fa-regular fa-circle-right" style="font-size:30px;"></i></div>
+                <div><i class="fa-regular fa-circle-right" style="font-size:30px;" onclick="nextImg()"></i></div>
             </div>
             <div class="rdoQuangCao">
-                <input type="radio" name="QuangCaoImg" checked>
-                <input type="radio" name="QuangCaoImg">
-                <input type="radio" name="QuangCaoImg">
+                <input type="radio" name="QuangCaoImg" checked onclick="showImg(0)">
+                <input type="radio" name="QuangCaoImg" onclick="showImg(1)">
+                <input type="radio" name="QuangCaoImg" onclick="showImg(2)">
             </div>
         </div>
         <div class="container">
