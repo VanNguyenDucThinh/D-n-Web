@@ -145,7 +145,11 @@ li {
 .admin-sidebar-content > ul > li:hover {
   background-color: var(--hover-color);
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+  color: black;
   padding-left: 10px;
+}
+.admin-sidebar-content li:hover{
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Submenu (book-menu) */
@@ -213,7 +217,7 @@ li {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   .admin .row-grid {
     grid-template-columns: 0 1fr; /* Sidebar ẩn, content 100% */
   }
