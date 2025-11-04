@@ -1,8 +1,8 @@
 :root {
   --main-bg-color: rgb(47, 79, 79);
-  --sub-bg-color: #d3d5d8;
+  --sub-bg-color: #cbced1;
   --top-height: 80px;
-  --hover-color: rgb(71, 245, 245);
+  --hover-color: rgba(0, 191, 255, 0.1);
 }
 
 html,
@@ -142,14 +142,26 @@ li {
   transition: all 0.3s ease;
 }
 
+admin-sidebar-content ul ul {
+  display: none;
+  margin-left: 20px;
+}
+.admin-sidebar-content ul ul.active {
+  display: block;
+}
 .admin-sidebar-content > ul > li:hover {
   background-color: var(--hover-color);
   box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
   color: black;
   padding-left: 10px;
 }
-.admin-sidebar-content li:hover{
-  background-color: rgba(0, 0, 0, 0.5);
+/* Tô menu đang active */
+.admin-sidebar-content a.active {
+  color: #00bfff;
+  font-weight: bold;
+  background-color: rgba(0, 191, 255, 0.1);
+  border-radius: 5px;
+  padding-left: 8px;
 }
 
 /* Submenu (book-menu) */
@@ -178,6 +190,27 @@ li {
   color: var(--hover-color);
 }
 
+/* Đăng nhập*/
+.admin-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: var(--top-height);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 30px;
+  z-index: 1000;
+}
+
+.login-btn a {
+  color: #2c2b2b;
+}
+
+.login-btn i {
+  font-size: 18px;
+}
 /* Logout section */
 .logout-section {
   position: absolute;
@@ -191,15 +224,14 @@ li {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #cccccc;
+  color: #2c2b2b;
   font-size: 15px;
   transition: color 0.3s ease;
 }
-
-.logout-section a:hover {
+/* .logout-section a:hover {
   color: var(--hover-color);
 }
-
+*/
 .logout-section i {
   font-size: 18px;
 }
@@ -216,15 +248,14 @@ li {
   box-sizing: border-box;
 }
 
-/* Responsive */
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .admin .row-grid {
-    grid-template-columns: 0 1fr; /* Sidebar ẩn, content 100% */
+    grid-template-columns: 0 1fr; /* Sidebar ẩn, bên content sẽ chiếm hết */
   }
   .admin-sidebar {
     width: 0;
   }
   .admin-sidebar.open {
-    width: 100%; /* Khi mở, chiếm toàn bộ nếu cần */
+    width: 100%; /* nó chiếm toàn bộ nếu cần */
   }
 }
