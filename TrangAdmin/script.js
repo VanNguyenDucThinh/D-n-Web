@@ -102,10 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="user-section" style="margin-top: 20px;">
         <h2>Quản lý Người Dùng</h2>
         <p style="margin-bottom: 20px;padding:20px;font-size:20px;">Tổng số người dùng: ${danhSachNguoiDung.length}</p>
-        <div class="search-bar"><b>Tìm kiếm:</b><input type="text" placeholder="Nhập thông tin" />
+        <div class="search-bar" style="display:flex; align-items:center; gap: 8px;">
+            <b>Tìm kiếm:</b>
+            <input type="text" placeholder="Nhập thông tin" style="padding: 6px; border: 1px solid #ccc; flex-grow: 1; max-width: 300px;" />
         </div>
         <div class="khuVucBangNguoiDung">
-          </div>
+        </div>
       </div>
     `,
     Sách: `
@@ -328,8 +330,16 @@ document.addEventListener("DOMContentLoaded", () => {
   //Lấy tất cả link trong sidebar và thiết lập mặc định
   const menuLinks = document.querySelectorAll(".admin-sidebar-content ul li a");
   menuLinks.forEach((link) => link.classList.remove("active"));
-  const defaultMenu = document.querySelector(".user");
-  if (defaultMenu) defaultMenu.classList.add("active");
+
+  // Tô menu mặc định khi mình vào trang admin
+  const tenMenuMacDinh = "Người dùng";
+  const defaultMenu = Array.from(menuLinks).find(
+    (link) => link.textContent.trim().replace(/\s+/g, " ") === tenMenuMacDinh
+  );
+
+  if (defaultMenu) {
+    defaultMenu.classList.add("active");
+  }
 
   //Gắn sự kiện cho nút toggle sidebar
   if (sidebarToggle) {
@@ -359,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Nếu không phải menu cha:
-      //Tô  menu hiện tại và tải nội dung
+      //Tô  menu hiện tại và tải nội dung
       menuLinks.forEach((l) => l.classList.remove("active"));
       link.classList.add("active");
 
