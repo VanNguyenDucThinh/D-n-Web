@@ -142,7 +142,7 @@ li {
   transition: all 0.3s ease;
 }
 
-admin-sidebar-content ul ul {
+.admin-sidebar-content ul ul {
   display: none;
   margin-left: 20px;
 }
@@ -258,4 +258,27 @@ admin-sidebar-content ul ul {
   .admin-sidebar.open {
     width: 100%; /* nó chiếm toàn bộ nếu cần */
   }
+}
+/*----------------------------------------------------------*/
+/* css của js */
+.search-bar {
+  margin: 10px 0 0 0;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.search-bar input {
+  margin-left: 8px;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+}
+.search-bar button {
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: white;
+}
+.khuVucBangNguoiDung {
+  background-color: white;
 }
