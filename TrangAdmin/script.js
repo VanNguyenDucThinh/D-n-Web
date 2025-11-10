@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2>Danh mục sách</h2>
       </div>
     `,
-    "Phiếu nhập sách(Hoàng)": `
+    "Phiếu nhập sách(Thắng)": `
       <div style="margin-top: 20px;">
         <h2>Phiếu nhập sách</h2>
       </div>
