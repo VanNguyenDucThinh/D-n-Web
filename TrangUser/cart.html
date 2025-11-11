@@ -1,11 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart.css">
+    <script src="https://kit.fontawesome.com/2af710fc73.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
+    <header class="Header">
+        <a class="logocuahang" href="Home.html">Tên cửa hàng</a>
+        <div class="SearchBar">
+            <input type="text" name="SearchItem" placeholder=" Tìm kiếm ...">
+        </div>
+        <div class="rightHeader">
+        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+        <button class="DangKy" onclick="document.getElementById('DonDangKy').style.display='block'">Đăng ký</button>
+        <button class="DangNhap" onclick="document.getElementById('DonDangNhap').style.display='block'">Đăng nhập</button>
+        </div>
+    </header>
+
+    <main class="cart-container">
+        <div class="product-summary">
+            <p><a href="Home.html" class="back-to-home-link">← Tiếp tục mua</a></p>
+            <h1>Giỏ Hàng Của Bạn</h1>
+            <div id="cart-items-list">
+                <!-- Các sản phẩm trong giỏ hàng sẽ được JS chèn vào đây -->
+                <p>Giỏ hàng của bạn đang trống.</p>
+            </div>
+            <div class="summary-total">
+                <span>Tạm tính:</span>
+                <span id="subtotal">0đ</span>
+            </div>
+            <div class="summary-total">
+                <span>Phí vận chuyển:</span>
+                <span id="shipping-fee">30,000đ</span>
+            </div>
+            <hr>
+            <div class="summary-total final-total">
+                <span>Tổng cộng:</span>
+                <span id="final-total">30,000đ</span>
+            </div>
+        </div>
+
+        <div class="checkout-details">
+            <div class="checkout-section">
+                <h2>Địa Chỉ Giao Hàng</h2>
+                <form id="address-form">
+                    <input type="text" id="customer-name" placeholder="Họ và tên" required>
+                    <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
+                    <input type="text" id="customer-address" placeholder="Địa chỉ (Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố)" required>
+                </form>
+            </div>
+
+            <div class="checkout-section">
+                <h2>Phương Thức Thanh Toán</h2>
+                <div id="payment-method">
+                    <div class="payment-option">
+                        <input type="radio" id="cod" name="payment" value="cod" checked>
+                        <label for="cod">Thanh toán khi nhận hàng (COD)</label>
+                    </div>
+                    <div class="payment-option">
+                        <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
+                        <label for="bank-transfer">Chuyển khoản ngân hàng</label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="place-order-btn">ĐẶT HÀNG</button>
+        </div>
+    </main>
+
+    <script src="cart.js" defer></script>
+    <div class="footer">
+        <div>
+            <table>
+                <!-- dòng 1 -->
+                <tr style="white-space: nowrap;">
+                    <th>
+                        <h3>Thông tin liên hệ</h3>
+                    </th>
+                    <th>
+                        <h3>Trợ giúp</h3>
+                    </th>
+                    <th>
+                        <h3>Về chúng mình</h3>
+                    </th>
+                </tr>
+                <!-- dòng 2 -->
+                <tr>
+                    <td>
+                        <i class="fa-brands fa-youtube fa-xl" style="color: #f10404;"></i>
+                        <i class="fa-brands fa-facebook fa-xl" style="color: #008bf5;"></i>
+                        <i class="fa-brands fa-github fa-xl" style="color: #000000;"></i>
+                        <i class="fa-brands fa-twitter" style="color: #74C0FC;"></i>
+                    </td>
+                
+                    <td>Phương thức thanh toán</td>
+                    <td rowspan="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, molestias.</td>
+                </tr>
+                 <!-- dòng 3 -->
+                <tr>
+                    <td>Địa chỉ: 273 An Dương Vương</td>
+                    <td>Shipping</td>
+                </tr>
+                <!-- dòng 4 -->
+                <tr>
+                    <td>SĐT: 0908070605</td>
+                    <td>Khuyến mãi</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </body>
 </html>
