@@ -19,6 +19,54 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Admin Header */
+.admin-header {
+  background-color: var(--main-bg-color);
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.admin-header .header-left h2 {
+  color: whitesmoke;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.admin-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-btn {
+  background: none;
+  border: none;
+  color: #cccccc;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+  padding: 10px 15px;
+}
+
+.login-btn:hover {
+  color: var(--hover-color);
+}
+
+.login-btn i {
+  font-size: 18px;
 }
 
 * {
@@ -44,7 +92,7 @@ li {
 .admin .row-grid {
   display: grid;
   grid-template-columns: 20% 80%;
-  height: 100%;
+  height: calc(100vh - 60px);
   transition: grid-template-columns 0.3s ease;
 }
 
@@ -52,7 +100,7 @@ li {
 .admin-sidebar {
   background-color: var(--main-bg-color);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   transition: width 0.3s ease;
   position: relative;
@@ -66,10 +114,10 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid gray;
-  padding: 10px 8px;
-  height: 150px;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px 20px;
+  height: auto;
   position: relative;
 }
 
@@ -78,45 +126,29 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
+  gap: 12px;
+  padding: 10px;
 }
 
 .logo-section img {
-  width: 35px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .logo-name {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   color: whitesmoke;
-  letter-spacing: 0.5px;
-}
-
-/* Admin role */
-.admin-role {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #e0ffff;
-  letter-spacing: 0.5px;
-  font-size: 18px;
-  font-weight: 600;
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.admin-role i {
-  font-size: 40px;
-  margin-bottom: 4px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Sidebar content */
 .admin-sidebar-content {
-  padding: 40px 0 80px 15px;
+  padding: 30px 0 80px 15px;
   color: whitesmoke;
   text-align: left;
 }
@@ -148,8 +180,17 @@ li {
   color: black;
   padding-left: 10px;
 }
-.admin-sidebar-content li:hover{
+.admin-sidebar-content li:hover {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Active menu item - highlighted */
+.admin-sidebar-content a.active {
+  background-color: var(--hover-color) !important;
+  color: black !important;
+  font-weight: 600;
+  padding-left: 10px;
+  border-radius: 4px;
 }
 
 /* Submenu (book-menu) */
@@ -220,7 +261,7 @@ li {
   background: white;
   padding: 20px;
   border-radius: 6px;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Tiêu đề bảng */
@@ -260,7 +301,8 @@ li {
   margin-top: 10px;
 }
 
-.phieu-table th, .phieu-table td {
+.phieu-table th,
+.phieu-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -341,7 +383,7 @@ li {
 }
 /*Phần dành riềng cho đơn hàng table*/
 .donHangSection body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   margin: 40px;
   background-color: #f9fafb;
 }
@@ -363,7 +405,8 @@ li {
   border-collapse: collapse;
 }
 
-.donHangSection th, td {
+.donHangSection th,
+td {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
@@ -374,7 +417,9 @@ li {
   color: white;
 }
 
-.donHangSection input, select, button {
+.donHangSection input,
+select,
+button {
   margin: 5px;
   padding: 8px;
   border: 1px solid #ccc;
@@ -397,7 +442,6 @@ li {
   text-align: center;
 }
 
-
 /* Styles for Dynamically Generated Content */
 
 .content-header {
@@ -418,7 +462,8 @@ li {
   gap: 10px;
 }
 
-.search-and-filter input[type="text"], .search-and-filter select {
+.search-and-filter input[type="text"],
+.search-and-filter select {
   padding: 8px 12px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -442,7 +487,8 @@ li {
   background-color: #f2f2f2;
 }
 
-.content-table th, .content-table td {
+.content-table th,
+.content-table td {
   padding: 12px 15px;
   border-bottom: 1px solid #ddd;
 }
@@ -458,130 +504,130 @@ li {
 
 /* Stock Status Indicators */
 .low-stock {
-    background-color: #fff3cd; /* Light yellow */
+  background-color: #fff3cd; /* Light yellow */
 }
 
 /* Phiếu Nhập Sách Styles */
 .phieu-container h2 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  color: #333;
 }
 
 .phieu-toolbar {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #f4f6f9;
-    border-radius: 8px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f4f6f9;
+  border-radius: 8px;
 }
 
 .phieu-toolbar .search-input,
 .phieu-toolbar .filter-select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .phieu-toolbar .search-input {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 .btn:active {
-    transform: scale(0.97);
+  transform: scale(0.97);
 }
 
 .btn-add {
-    background-color: #28a745; /* Green */
-    color: white;
+  background-color: #28a745; /* Green */
+  color: white;
 }
 
 .btn-clear {
-    background-color: #dc3545; /* Red */
-    color: white;
+  background-color: #dc3545; /* Red */
+  color: white;
 }
 
 .btn-edit {
-    background-color: #ffc107; /* Yellow */
-    color: #333;
+  background-color: #ffc107; /* Yellow */
+  color: #333;
 }
 
 .btn-complete {
-    background-color: #17a2b8; /* Teal */
-    color: white;
+  background-color: #17a2b8; /* Teal */
+  color: white;
 }
 
 .btn-save {
-    background-color: #007bff; /* Blue */
-    color: white;
+  background-color: #007bff; /* Blue */
+  color: white;
 }
 
 #add-form {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 #add-form h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
+  margin-top: 0;
+  margin-bottom: 15px;
 }
 
 .form-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .form-row input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1;
 }
 
 .status-complete {
-    color: green;
-    font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
 
 .status-pending {
-    color: #ff8c00; /* Dark Orange */
-    font-weight: bold;
+  color: #ff8c00; /* Dark Orange */
+  font-weight: bold;
 }
 
 .phieu-table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.phieu-table th, .phieu-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+.phieu-table th,
+.phieu-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 .phieu-table th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .phieu-table tr:hover {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
-
 
 .content-table tr.low-stock:hover {
   background-color: #fff5cc;
@@ -750,12 +796,12 @@ li {
   color: black;
 }
 
-#searchInput{
-margin-left: auto;;
+#searchInput {
+  margin-left: auto;
 }
 .product-img {
-  max-width: 30%;  
-  height: auto;     
+  max-width: 30%;
+  height: auto;
 }
 .form-box input,
 .form-box select {
@@ -766,4 +812,163 @@ margin-left: auto;;
   outline: none;
   font-size: 14px;
   transition: 0.2s;
+}
+
+/* Login Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.modal-box {
+  background: white;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  background-color: var(--main-bg-color);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.close-modal:hover {
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.form-group label i {
+  color: var(--main-bg-color);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--main-bg-color);
+  box-shadow: 0 0 0 3px rgba(47, 79, 79, 0.1);
+}
+
+.error-message {
+  background-color: #fee;
+  color: #c33;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border-left: 4px solid #c33;
+}
+
+.modal-btn-primary {
+  width: 100%;
+  background-color: var(--main-bg-color);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.modal-btn-primary:hover {
+  background-color: rgb(35, 60, 60);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(47, 79, 79, 0.3);
+}
+
+.modal-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Admin Info Display */
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 15px;
+  color: whitesmoke;
+}
+
+.admin-info i {
+  font-size: 20px;
+}
+
+.admin-info span {
+  font-size: 14px;
+  font-weight: 500;
 }
