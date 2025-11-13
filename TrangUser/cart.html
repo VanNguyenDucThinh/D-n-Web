@@ -1,117 +1,283 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ Hàng</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="cart.css">
-    <script src="https://kit.fontawesome.com/2af710fc73.js" crossorigin="anonymous"></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loyal Store - Giỏ Hàng</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <script
+      src="https://kit.fontawesome.com/2af710fc73.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <header class="Header">
-        <a class="logocuahang" href="Home.html">Tên cửa hàng</a>
-        <div class="SearchBar">
-            <input type="text" name="SearchItem" placeholder=" Tìm kiếm ...">
+      <a class="logocuahang" href="Home.html">Loyal Store</a>
+      <div class="SearchBar">
+        <input type="text" name="SearchItem" placeholder=" Tìm kiếm ..." />
+      </div>
+      <div class="rightHeader">
+        <a href="cart.html" class="cart-link">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+
+        <!-- Hiển thị khi CHƯA đăng nhập -->
+        <div id="auth-buttons" class="auth-section">
+          <button
+            class="DangKy"
+            onclick="document.getElementById('DonDangKy').style.display='block'"
+          >
+            Đăng ký
+          </button>
+          <button
+            class="DangNhap"
+            onclick="document.getElementById('DonDangNhap').style.display='block'"
+          >
+            Đăng nhập
+          </button>
         </div>
-        <div class="rightHeader">
-        <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
-        <button class="DangKy" onclick="document.getElementById('DonDangKy').style.display='block'">Đăng ký</button>
-        <button class="DangNhap" onclick="document.getElementById('DonDangNhap').style.display='block'">Đăng nhập</button>
+
+        <!-- Hiển thị khi ĐÃ đăng nhập -->
+        <div id="user-info" class="user-section" style="display: none">
+          <div class="user-avatar" onclick="window.location.href='Home.html'">
+            <i class="fa-solid fa-circle-user"></i>
+          </div>
+          <span class="username-display" id="username-display"></span>
+          <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
         </div>
+      </div>
     </header>
 
     <main class="cart-container">
+      <!-- Tab Navigation -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('cart')">
+          Giỏ hàng
+        </button>
+        <button class="tab-btn" onclick="switchTab('orders')">
+          Đơn hàng của tôi
+        </button>
+      </div>
+
+      <!-- TAB 1: GIỎ HÀNG -->
+      <div id="cart-tab" class="tab-content active">
         <div class="product-summary">
-            <p><a href="Home.html" class="back-to-home-link">← Tiếp tục mua</a></p>
-            <h1>Giỏ Hàng Của Bạn</h1>
-            <div id="cart-items-list">
-                <!-- Các sản phẩm trong giỏ hàng sẽ được JS chèn vào đây -->
-                <p>Giỏ hàng của bạn đang trống.</p>
-            </div>
-            <div class="summary-total">
-                <span>Tạm tính:</span>
-                <span id="subtotal">0đ</span>
-            </div>
-            <div class="summary-total">
-                <span>Phí vận chuyển:</span>
-                <span id="shipping-fee">30,000đ</span>
-            </div>
-            <hr>
-            <div class="summary-total final-total">
-                <span>Tổng cộng:</span>
-                <span id="final-total">30,000đ</span>
-            </div>
+          <p>
+            <a href="Home.html" class="back-to-home-link">← Tiếp tục mua</a>
+          </p>
+          <h1>Giỏ Hàng Của Bạn</h1>
+          <div id="cart-items-list">
+            <!-- Các sản phẩm trong giỏ hàng sẽ được JS chèn vào đây -->
+            <p>Giỏ hàng của bạn đang trống.</p>
+          </div>
+          <div class="summary-total">
+            <span>Tạm tính:</span>
+            <span id="subtotal">0đ</span>
+          </div>
+          <div class="summary-total">
+            <span>Phí vận chuyển:</span>
+            <span id="shipping-fee">30,000đ</span>
+          </div>
+          <hr />
+          <div class="summary-total final-total">
+            <span>Tổng cộng:</span>
+            <span id="final-total">30,000đ</span>
+          </div>
         </div>
 
         <div class="checkout-details">
-            <div class="checkout-section">
-                <h2>Địa Chỉ Giao Hàng</h2>
-                <form id="address-form">
-                    <input type="text" id="customer-name" placeholder="Họ và tên" required>
-                    <input type="tel" id="customer-phone" placeholder="Số điện thoại" required>
-                    <input type="text" id="customer-address" placeholder="Địa chỉ (Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố)" required>
-                </form>
+          <div class="checkout-section">
+            <h2>Địa Chỉ Giao Hàng</h2>
+
+            <!-- Dropdown chọn loại địa chỉ -->
+            <div class="address-type-selector">
+              <label for="address-type">Chọn địa chỉ:</label>
+              <select id="address-type" onchange="handleAddressTypeChange()">
+                <option value="current">Lấy địa chỉ hiện tại</option>
+                <option value="new">Nhập địa chỉ mới</option>
+              </select>
             </div>
 
-            <div class="checkout-section">
-                <h2>Phương Thức Thanh Toán</h2>
-                <div id="payment-method">
-                    <div class="payment-option">
-                        <input type="radio" id="cod" name="payment" value="cod" checked>
-                        <label for="cod">Thanh toán khi nhận hàng (COD)</label>
-                    </div>
-                    <div class="payment-option">
-                        <input type="radio" id="bank-transfer" name="payment" value="bank-transfer">
-                        <label for="bank-transfer">Chuyển khoản ngân hàng</label>
-                    </div>
-                </div>
+            <!-- Form hiện địa chỉ hiện tại -->
+            <div id="current-address-display" style="display: none">
+              <div class="address-info-box">
+                <p><strong>Họ tên:</strong> <span id="current-name"></span></p>
+                <p><strong>SĐT:</strong> <span id="current-phone"></span></p>
+                <p>
+                  <strong>Địa chỉ:</strong>
+                  <span id="current-address-text"></span>
+                </p>
+              </div>
+              <p class="address-note">
+                ⚠️ Nếu thông tin không đúng, vui lòng cập nhật trong Profile
+                hoặc chọn "Nhập địa chỉ mới"
+              </p>
             </div>
 
-            <button id="place-order-btn">ĐẶT HÀNG</button>
+            <!-- Form nhập địa chỉ mới -->
+            <form id="address-form" style="display: none">
+              <input
+                type="text"
+                id="customer-name"
+                placeholder="Họ và tên"
+                required
+              />
+              <input
+                type="tel"
+                id="customer-phone"
+                placeholder="Số điện thoại"
+                required
+              />
+              <input
+                type="text"
+                id="customer-address"
+                placeholder="Địa chỉ (Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố)"
+                required
+              />
+            </form>
+          </div>
+
+          <div class="checkout-section">
+            <h2>Phương Thức Thanh Toán</h2>
+            <div id="payment-method">
+              <div class="payment-option">
+                <input
+                  type="radio"
+                  id="cod"
+                  name="payment"
+                  value="cod"
+                  checked
+                />
+                <label for="cod">Thanh toán khi nhận hàng (COD)</label>
+              </div>
+              <div class="payment-option">
+                <input
+                  type="radio"
+                  id="bank-transfer"
+                  name="payment"
+                  value="bank-transfer"
+                />
+                <label for="bank-transfer">Chuyển khoản ngân hàng</label>
+              </div>
+            </div>
+          </div>
+
+          <button id="place-order-btn">ĐẶT HÀNG</button>
         </div>
+      </div>
+
+      <!-- TAB 2: ĐƠN HÀNG CỦA TÔI -->
+      <div id="orders-tab" class="tab-content">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+          "
+        >
+          <h1 style="margin: 0">Đơn hàng của tôi</h1>
+          <button
+            class="refresh-btn"
+            onclick="refreshOrders()"
+            title="Cập nhật trạng thái mới nhất"
+          >
+            Làm mới
+          </button>
+        </div>
+
+        <!-- Bộ lọc trạng thái -->
+        <div class="filter-bar">
+          <button
+            class="filter-btn active"
+            data-status="all"
+            onclick="filterOrders('all')"
+          >
+            Tất cả
+          </button>
+          <button
+            class="filter-btn"
+            data-status="Mới Đặt"
+            onclick="filterOrders('Mới Đặt')"
+          >
+            Mới đặt
+          </button>
+          <button
+            class="filter-btn"
+            data-status="Đang xử lý"
+            onclick="filterOrders('Đang xử lý')"
+          >
+            Đang xử lý
+          </button>
+          <button
+            class="filter-btn"
+            data-status="Đang giao"
+            onclick="filterOrders('Đang giao')"
+          >
+            Đang giao
+          </button>
+          <button
+            class="filter-btn"
+            data-status="Đã giao"
+            onclick="filterOrders('Đã giao')"
+          >
+            Đã giao
+          </button>
+        </div>
+
+        <!-- Danh sách đơn hàng -->
+        <div id="orders-list" class="orders-list">
+          <!-- Sẽ được render bằng JavaScript -->
+        </div>
+      </div>
     </main>
 
     <script src="cart.js" defer></script>
     <div class="footer">
-        <div>
-            <table>
-                <!-- dòng 1 -->
-                <tr style="white-space: nowrap;">
-                    <th>
-                        <h3>Thông tin liên hệ</h3>
-                    </th>
-                    <th>
-                        <h3>Trợ giúp</h3>
-                    </th>
-                    <th>
-                        <h3>Về chúng mình</h3>
-                    </th>
-                </tr>
-                <!-- dòng 2 -->
-                <tr>
-                    <td>
-                        <i class="fa-brands fa-youtube fa-xl" style="color: #f10404;"></i>
-                        <i class="fa-brands fa-facebook fa-xl" style="color: #008bf5;"></i>
-                        <i class="fa-brands fa-github fa-xl" style="color: #000000;"></i>
-                        <i class="fa-brands fa-twitter" style="color: #74C0FC;"></i>
-                    </td>
-                
-                    <td>Phương thức thanh toán</td>
-                    <td rowspan="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, molestias.</td>
-                </tr>
-                 <!-- dòng 3 -->
-                <tr>
-                    <td>Địa chỉ: 273 An Dương Vương</td>
-                    <td>Shipping</td>
-                </tr>
-                <!-- dòng 4 -->
-                <tr>
-                    <td>SĐT: 0908070605</td>
-                    <td>Khuyến mãi</td>
-                </tr>
-            </table>
-        </div>
+      <div>
+        <table>
+          <!-- dòng 1 -->
+          <tr style="white-space: nowrap">
+            <th>
+              <h3>Thông tin liên hệ</h3>
+            </th>
+            <th>
+              <h3>Trợ giúp</h3>
+            </th>
+            <th>
+              <h3>Về chúng mình</h3>
+            </th>
+          </tr>
+          <!-- dòng 2 -->
+          <tr>
+            <td>
+              <i class="fa-brands fa-youtube fa-xl" style="color: #f10404"></i>
+              <i class="fa-brands fa-facebook fa-xl" style="color: #008bf5"></i>
+              <i class="fa-brands fa-github fa-xl" style="color: #000000"></i>
+              <i class="fa-brands fa-twitter" style="color: #74c0fc"></i>
+            </td>
+
+            <td>Phương thức thanh toán</td>
+            <td rowspan="3">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Nesciunt, molestias.
+            </td>
+          </tr>
+          <!-- dòng 3 -->
+          <tr>
+            <td>Địa chỉ: 273 An Dương Vương</td>
+            <td>Shipping</td>
+          </tr>
+          <!-- dòng 4 -->
+          <tr>
+            <td>SĐT: 0908070605</td>
+            <td>Khuyến mãi</td>
+          </tr>
+        </table>
+      </div>
     </div>
-</body>
+  </body>
 </html>
