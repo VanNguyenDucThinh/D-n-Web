@@ -1,183 +1,462 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cửa hàng</title>
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loyal Store</title>
+    <link rel="stylesheet" href="style.css" />
     <script src="Home.js" defer></script>
-    <script src="https://kit.fontawesome.com/2af710fc73.js" crossorigin="anonymous"></script>
-</head>
-<body>
+    <script
+      src="https://kit.fontawesome.com/2af710fc73.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <div class="Khung">
-        <div class="Header">
-            <a class="logocuahang" href="#">Tên cửa hàng</a>
-            <div class="SearchBar">
-                <input type="text" name="SearchItem" placeholder=" Tìm kiếm ...">
-            </div>
-            <div class="rightHeader">
-            <a href="/TrangUser/cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
-            <button class="DangKy" onclick="document.getElementById('DonDangKy').style.display='block'">Đăng ký</button>
-            <button class="DangNhap" onclick="document.getElementById('DonDangNhap').style.display='block'">Đăng nhập</button>
-            </div>
+      <div class="Header">
+        <a class="logocuahang" href="#">Loyal Store</a>
+        <div class="SearchBar">
+          <input type="text" name="SearchItem" placeholder=" Tìm kiếm ..." />
         </div>
+        <div class="rightHeader">
+          <a href="cart.html" class="cart-link">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-count" id="cart-count">0</span>
+          </a>
+
+          <!-- Hiển thị khi CHƯA đăng nhập -->
+          <div id="auth-buttons" class="auth-section">
+            <button
+              class="DangKy"
+              onclick="document.getElementById('DonDangKy').style.display='block'"
+            >
+              Đăng ký
+            </button>
+            <button
+              class="DangNhap"
+              onclick="document.getElementById('DonDangNhap').style.display='block'"
+            >
+              Đăng nhập
+            </button>
+          </div>
+
+          <!-- Hiển thị khi ĐÃ đăng nhập -->
+          <div id="user-info" class="user-section" style="display: none">
+            <div class="user-avatar" onclick="toggleUserMenu()">
+              <i class="fa-solid fa-circle-user"></i>
+            </div>
+            <span class="username-display" id="username-display"></span>
+            <button class="btn-logout" onclick="handleLogout()">
+              Đăng xuất
+            </button>
+
+            <!-- Dropdown menu thông tin user -->
+            <div id="user-dropdown" class="user-dropdown" style="display: none">
+              <div class="dropdown-header">
+                <i class="fa-solid fa-user-circle"></i>
+                <strong id="dropdown-username"></strong>
+              </div>
+              <hr />
+              <div class="dropdown-item">
+                <strong>Họ tên:</strong> <span id="dropdown-fullname"></span>
+              </div>
+              <div class="dropdown-item">
+                <strong>Email:</strong> <span id="dropdown-email"></span>
+              </div>
+              <div class="dropdown-item">
+                <strong>SĐT:</strong> <span id="dropdown-phone"></span>
+              </div>
+              <div class="dropdown-item">
+                <strong>Giới tính:</strong> <span id="dropdown-gender"></span>
+              </div>
+              <div class="dropdown-item">
+                <strong>Ngày sinh:</strong>
+                <span id="dropdown-birthdate"></span>
+              </div>
+              <hr />
+              <button class="btn-edit-profile" onclick="openEditProfile()">
+                <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa thông tin
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="QuangCao">
+          <div>
+            <i
+              class="fa-regular fa-circle-left"
+              style="font-size: 30px"
+              onclick="prevImg()"
+            ></i>
+          </div>
+          <img src="Pictures/SGU logo.jpg" alt="Sách" />
+          <div>
+            <i
+              class="fa-regular fa-circle-right"
+              style="font-size: 30px"
+              onclick="nextImg()"
+            ></i>
+          </div>
+        </div>
+        <div class="rdoQuangCao">
+          <input type="radio" name="QuangCaoImg" checked onclick="showImg(0)" />
+          <input type="radio" name="QuangCaoImg" onclick="showImg(1)" />
+          <input type="radio" name="QuangCaoImg" onclick="showImg(2)" />
+        </div>
+      </div>
+      <div class="container">
+        <div class="LeftMenu">
+          <ul>
+            <li onclick="filterByCategory('all')" class="menu-item active">
+              Tất cả sản phẩm
+            </li>
+            <li onclick="filterByCategory('truyện tranh')" class="menu-item">
+              1. Truyện tranh
+            </li>
+            <li onclick="filterByCategory('tiểu thuyết')" class="menu-item">
+              2. Tiểu thuyết
+            </li>
+            <li onclick="filterByCategory('văn học')" class="menu-item">
+              3. Văn học
+            </li>
+            <li onclick="filterByCategory('trinh thám')" class="menu-item">
+              4. Trinh thám
+            </li>
+          </ul>
+        </div>
+        <div class="content">
+          <!-- Sản phẩm sẽ được render tự động bởi JavaScript -->
+          <!-- Pagination buttons -->
+          <div class="pagination"></div>
+        </div>
+      </div>
+      <div class="footer">
         <div>
-            <div class="QuangCao">
-                <div><i class="fa-regular fa-circle-left" style="font-size:30px;" onclick="prevImg()"></i></div>
-                <img src="/TrangUser/Pictures/SGU logo.jpg" alt="Sách">
-                <div><i class="fa-regular fa-circle-right" style="font-size:30px;" onclick="nextImg()"></i></div>
-            </div>
-            <div class="rdoQuangCao">
-                <input type="radio" name="QuangCaoImg" checked onclick="showImg(0)">
-                <input type="radio" name="QuangCaoImg" onclick="showImg(1)">
-                <input type="radio" name="QuangCaoImg" onclick="showImg(2)">
-            </div>
+          <table>
+            <!-- dòng 1 -->
+            <tr style="white-space: nowrap">
+              <th>
+                <h3>Thông tin liên hệ</h3>
+              </th>
+              <th>
+                <h3>Trợ giúp</h3>
+              </th>
+              <th>
+                <h3>Về chúng mình</h3>
+              </th>
+            </tr>
+            <!-- dòng 2 -->
+            <tr>
+              <td>
+                <i
+                  class="fa-brands fa-youtube fa-xl"
+                  style="color: #f10404"
+                ></i>
+                <i
+                  class="fa-brands fa-facebook fa-xl"
+                  style="color: #008bf5"
+                ></i>
+                <i class="fa-brands fa-github fa-xl" style="color: #000000"></i>
+                <i class="fa-brands fa-twitter" style="color: #74c0fc"></i>
+              </td>
+              <td>Phương thức thanh toán</td>
+              <td rowspan="3">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Nesciunt, molestias.
+              </td>
+            </tr>
+            <!-- dòng 3 -->
+            <tr>
+              <td>Địa chỉ: 273 An Dương Vương</td>
+              <td>Shipping</td>
+            </tr>
+            <!-- dòng 4 -->
+            <tr>
+              <td>SĐT: 0908070605</td>
+              <td>Khuyến mãi</td>
+            </tr>
+          </table>
         </div>
-        <div class="container">
-            <div class="LeftMenu">
-                <ul>
-                    <li>1. Sách chính trị - Pháp luật</li>
-                    <li>2. Sách Khoa học công nghệ - Kinh tế</li>
-                    <li>3. Sách Truyện</li>
-                    <li>4. Sách Tâm lý</li>
-                    <li>5. Sách Thiếu nhi</li>
-                </ul>
-            </div>
-            <div class="content">
-                <div class="product">
-                    <div><img src="/TrangUser/Pictures/SGU logo.jpg" alt="Ảnh"></div>
-                    <div>Tên sản phẩm</div>
-                    <div>Giá</div>
-                    <div>Chi tiết</div>
-                    <div><button>Thêm vào giỏ hàng</button></div>
-                </div>
-                <div class="product">
-                    <div><img src="/TrangUser/Pictures/SGU logo.jpg" alt="Ảnh"></div>
-                    <div>Tên sản phẩm</div>
-                    <div>Giá</div>
-                    <div>Chi tiết</div>
-                    <div><button>Thêm vào giỏ hàng</button></div>
-                </div>
-                <div class="product">
-                    <div><img src="/TrangUser/Pictures/SGU logo.jpg" alt="Ảnh"></div>
-                    <div>Tên sản phẩm</div>
-                    <div>Giá</div>
-                    <div>Chi tiết</div>
-                    <div><button>Thêm vào giỏ hàng</button></div>
-                </div>
-                <div class="product">
-                    <div><img src="/TrangUser/Pictures/SGU logo.jpg" alt="Ảnh"></div>
-                    <div>Tên sản phẩm</div>
-                    <div>Giá</div>
-                    <div>Chi tiết</div>
-                    <div><button>Thêm vào giỏ hàng</button></div>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <div>
-                <table>
-                    <!-- dòng 1 -->
-                    <tr style="white-space: nowrap;">
-                        <th>
-                            <h3>Thông tin liên hệ</h3>
-                        </th>
-                        <th>
-                            <h3>Trợ giúp</h3>
-                        </th>
-                        <th>
-                            <h3>Về chúng mình</h3>
-                        </th>
-                    </tr>
-                    <!-- dòng 2 -->
-                    <tr>
-                        <td>
-                            <i class="fa-brands fa-youtube fa-xl" style="color: #f10404;"></i>
-                            <i class="fa-brands fa-facebook fa-xl" style="color: #008bf5;"></i>
-                            <i class="fa-brands fa-github fa-xl" style="color: #000000;"></i>
-                            <i class="fa-brands fa-twitter" style="color: #74C0FC;"></i>
-                        </td>
-                        <td>Phương thức thanh toán</td>
-                        <td rowspan="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nesciunt, molestias.</td>
-                    </tr>
-                     <!-- dòng 3 -->
-                    <tr>
-                        <td>Địa chỉ: 273 An Dương Vương</td>
-                        <td>Shipping</td>
-                    </tr>
-                    <!-- dòng 4 -->
-                    <tr>
-                        <td>SĐT: 0908070605</td>
-                        <td>Khuyến mãi</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+      </div>
     </div>
     <div id="DonDangNhap" class="modaldangnhap">
-        <form class="formdangnhap animate" method="post">
+      <form class="formdangnhap animate" method="post">
         <div class="imgcontainer">
-            <img src="/TrangUser/Pictures/SGU logo.jpg" alt="">
-            <button class="closedangnhap" onclick="document.getElementById('DonDangNhap').style.display='none'">&times;</button>
+          <img src="Pictures/SGU logo.jpg" alt="" />
+          <button
+            type="button"
+            class="closedangnhap"
+            onclick="document.getElementById('DonDangNhap').style.display='none'"
+          >
+            &times;
+          </button>
         </div>
         <label for="TenDangNhap"><b>Username:</b></label>
-        <input type="text" name="TenDangNhap" placeholder="Nhập Username">
+        <input type="text" name="TenDangNhap" placeholder="Nhập Username" />
         <label for="MatKhau"><b>Password:</b></label>
-        <input type="password" name="MatKhauDangNhap" placeholder="Nhập Password">
-        <input type="checkbox" name="Remember">
+        <div style="position: relative; display: flex; align-items: center">
+          <input
+            type="password"
+            name="MatKhauDangNhap"
+            id="MatKhauDangNhap"
+            placeholder="Nhập Password"
+            style="flex: 1; padding-right: 40px"
+          />
+          <i
+            class="fa-solid fa-eye"
+            id="toggleLoginPassword"
+            style="
+              position: absolute;
+              right: 10px;
+              cursor: pointer;
+              color: #358b8b;
+            "
+            onclick="togglePasswordVisibility('MatKhauDangNhap', 'toggleLoginPassword')"
+          ></i>
+        </div>
+        <input type="checkbox" name="Remember" />
         <label for="Remember">Remember me</label>
         <button class="btndangnhap"><b>Đăng nhập</b></button>
-        <i>Forget <a href="#">password</a>?</i>
-        </form>
+        <i
+          >Forget
+          <a href="#" onclick="openForgetPassword(); return false;">password</a
+          >?</i
+        >
+      </form>
     </div>
-    <div id="DonDangKy" class="modaldangky">
-        <form class="formdangky animate" method="post">
+
+    <!-- Modal Quên mật khẩu -->
+    <div id="DonQuenMatKhau" class="modaldangnhap" style="display: none">
+      <form class="formdangnhap animate" id="formQuenMatKhau" method="post">
         <div class="imgcontainer">
-            <img src="/TrangUser/Pictures/SGU logo.jpg" alt="Logo cửa hàng">
-            <button class="closedangky" onclick="document.getElementById('DonDangKy').style.display='none'">&times;</button>
+          <img src="Pictures/SGU logo.jpg" alt="Logo" />
+          <button
+            type="button"
+            class="closedangnhap"
+            onclick="document.getElementById('DonQuenMatKhau').style.display='none'"
+          >
+            &times;
+          </button>
+        </div>
+        <h3 style="text-align: center; color: #358b8b">Quên mật khẩu</h3>
+        <p style="text-align: center; font-size: 14px; color: #666">
+          Nhập tên đăng nhập của bạn để gửi yêu cầu reset mật khẩu đến Admin
+        </p>
+        <label for="UsernameQuenMK"><b>Tên đăng nhập:</b></label>
+        <input
+          type="text"
+          name="UsernameQuenMK"
+          id="UsernameQuenMK"
+          placeholder="Nhập tên đăng nhập"
+          required
+        />
+        <button type="submit" class="btndangnhap">
+          <b>Gửi yêu cầu</b>
+        </button>
+        <p style="text-align: center; margin-top: 10px">
+          <a href="#" onclick="backToLogin(); return false;"
+            >← Quay lại đăng nhập</a
+          >
+        </p>
+      </form>
+    </div>
+
+    <div id="DonDangKy" class="modaldangky">
+      <form class="formdangky animate" method="post">
+        <div class="imgcontainer">
+          <img src="Pictures/SGU logo.jpg" alt="Logo cửa hàng" />
+          <button
+            class="closedangky"
+            onclick="document.getElementById('DonDangKy').style.display='none'"
+          >
+            &times;
+          </button>
         </div>
         <div>
-            <label for="TenDangKy">Họ tên: </label>
-            <input type="text" name="TenDangKy" placeholder="Nhập họ tên:">
+          <label for="TenDangKy">Họ tên: </label>
+          <input type="text" name="TenDangKy" placeholder="Nhập họ tên:" />
         </div>
-        <hr>
-        <div style="display: flex;">
-            <label for="GenderDangKy">Giới tính: </label>
-            <div class="GenderFrame">
-                <input type="radio" name="GenderDangKy">
-                Nam <i class="fa-solid fa-person"></i> 
-            </div>
-            <div class="GenderFrame">
-                <input type="radio" name="GenderDangKy">
-                Nữ <i class="fa-solid fa-person-dress"></i>
-            </div>
+        <hr />
+        <div style="display: flex">
+          <label for="GenderDangKy">Giới tính: </label>
+          <div class="GenderFrame">
+            <input type="radio" name="GenderDangKy" value="Nam" />
+            Nam <i class="fa-solid fa-person"></i>
+          </div>
+          <div class="GenderFrame">
+            <input type="radio" name="GenderDangKy" value="Nữ" />
+            Nữ <i class="fa-solid fa-person-dress"></i>
+          </div>
         </div>
-        <hr>
+        <hr />
         <div>
-            <label for="EmailDangKy">Email: </label>
-            <input type="text" name="EmailDangKy" placeholder="Nhập Email: ">
-        </div>
-        <div>
-            <label for="SDT_DangKy">Số điện thoại: </label>
-            <input type="tel" name="SDT_DangKy" placeholder="Nhập số điện thoại: ">
+          <label for="EmailDangKy">Email: </label>
+          <input type="text" name="EmailDangKy" placeholder="Nhập Email: " />
         </div>
         <div>
-            <label for="UserDangKy">Username: </label>
-            <input type="text" name="UserDangKy" placeholder="Nhập Username (Không sử dụng họ tên):">
+          <label for="SDT_DangKy">Số điện thoại: </label>
+          <input
+            type="tel"
+            name="SDT_DangKy"
+            placeholder="Nhập số điện thoại: "
+          />
         </div>
         <div>
-            <label for="PassDangKy">Password: </label>
-            <input type="password" name="PassDangKy" placeholder="Nhập password: ">
+          <label for="DiaChiDangKy">Địa chỉ: </label>
+          <input type="text" name="DiaChiDangKy" placeholder="Nhập địa chỉ: " />
         </div>
         <div>
-            <label for="NgaySinhDangKy">Ngày sinh: </label>
-            <input type="date" name="NgaySinhDangKy">
+          <label for="UserDangKy">Username: </label>
+          <input
+            type="text"
+            name="UserDangKy"
+            placeholder="Nhập Username (Không sử dụng họ tên):"
+          />
+        </div>
+        <div>
+          <label for="PassDangKy">Password: </label>
+          <div style="position: relative; display: flex; align-items: center">
+            <input
+              type="password"
+              name="PassDangKy"
+              id="PassDangKy"
+              placeholder="Nhập password: "
+              style="flex: 1; padding-right: 40px"
+            />
+            <i
+              class="fa-solid fa-eye"
+              id="toggleRegisterPassword"
+              style="
+                position: absolute;
+                right: 10px;
+                cursor: pointer;
+                color: #358b8b;
+              "
+              onclick="togglePasswordVisibility('PassDangKy', 'toggleRegisterPassword')"
+            ></i>
+          </div>
+        </div>
+        <div>
+          <label for="NgaySinhDangKy">Ngày sinh: </label>
+          <input type="date" name="NgaySinhDangKy" />
         </div>
         <div class="btndangky">
-            <button type="submit">Đăng ký</button>
-            <button type="reset">Đặt lại</button>
+          <button type="submit">Đăng ký</button>
+          <button type="reset">Đặt lại</button>
         </div>
-        </form>
+      </form>
     </div>
-</body>
+
+    <!-- Modal chỉnh sửa thông tin người dùng -->
+    <div id="DonChinhSua" class="modaldangky" style="display: none">
+      <form class="formdangky animate" id="formChinhSua" method="post">
+        <div class="imgcontainer">
+          <img src="Pictures/SGU logo.jpg" alt="Logo cửa hàng" />
+          <button
+            type="button"
+            class="closedangky"
+            onclick="document.getElementById('DonChinhSua').style.display='none'"
+          >
+            &times;
+          </button>
+        </div>
+        <h3 style="text-align: center; color: #358b8b">Chỉnh sửa thông tin</h3>
+
+        <div>
+          <label for="TenEdit">Họ tên: </label>
+          <input
+            type="text"
+            name="TenEdit"
+            id="TenEdit"
+            placeholder="Nhập họ tên:"
+          />
+        </div>
+        <hr />
+        <div style="display: flex">
+          <label for="GenderEdit">Giới tính: </label>
+          <div class="GenderFrame">
+            <input type="radio" name="GenderEdit" value="Nam" id="GenderNam" />
+            Nam <i class="fa-solid fa-person"></i>
+          </div>
+          <div class="GenderFrame">
+            <input type="radio" name="GenderEdit" value="Nữ" id="GenderNu" />
+            Nữ <i class="fa-solid fa-person-dress"></i>
+          </div>
+        </div>
+        <hr />
+        <div>
+          <label for="EmailEdit">Email: </label>
+          <input
+            type="text"
+            name="EmailEdit"
+            id="EmailEdit"
+            placeholder="Nhập Email: "
+          />
+        </div>
+        <div>
+          <label for="SDT_Edit">Số điện thoại: </label>
+          <input
+            type="tel"
+            name="SDT_Edit"
+            id="SDT_Edit"
+            placeholder="Nhập số điện thoại: "
+          />
+        </div>
+        <div>
+          <label for="NgaySinhEdit">Ngày sinh: </label>
+          <input type="date" name="NgaySinhEdit" id="NgaySinhEdit" />
+        </div>
+        <div>
+          <label for="DiaChiEdit">Địa chỉ: </label>
+          <input
+            type="text"
+            name="DiaChiEdit"
+            id="DiaChiEdit"
+            placeholder="Nhập địa chỉ giao hàng"
+          />
+        </div>
+        <hr />
+        <h4 style="color: #358b8b; margin: 10px 0">
+          Đổi mật khẩu (không bắt buộc)
+        </h4>
+        <div>
+          <label for="MatKhauCuEdit">Mật khẩu hiện tại: </label>
+          <input
+            type="password"
+            name="MatKhauCuEdit"
+            id="MatKhauCuEdit"
+            placeholder="Nhập mật khẩu hiện tại"
+          />
+        </div>
+        <div>
+          <label for="MatKhauMoiEdit">Mật khẩu mới: </label>
+          <input
+            type="password"
+            name="MatKhauMoiEdit"
+            id="MatKhauMoiEdit"
+            placeholder="Nhập mật khẩu mới"
+          />
+        </div>
+        <div>
+          <label for="XacNhanMatKhauEdit">Xác nhận mật khẩu mới: </label>
+          <input
+            type="password"
+            name="XacNhanMatKhauEdit"
+            id="XacNhanMatKhauEdit"
+            placeholder="Nhập lại mật khẩu mới"
+          />
+        </div>
+        <div class="btndangky">
+          <button type="submit">Lưu thay đổi</button>
+          <button
+            type="button"
+            onclick="document.getElementById('DonChinhSua').style.display='none'"
+          >
+            Hủy
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>
