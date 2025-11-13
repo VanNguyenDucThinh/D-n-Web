@@ -11,21 +11,45 @@
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
       rel="stylesheet"
     />
+    <!-- FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- link free icon -->
     <link rel="stylesheet" href="style.css" />
     <title>Admin</title>
   </head>
   <body>
     <section class="admin">
+      <!-- Header with login button -->
+      <div class="admin-header">
+        <div class="header-left">
+          <h2>Trang Admin</h2>
+        </div>
+        <div class="header-right">
+          <button
+            class="view-user-btn"
+            onclick="window.open('../TrangUser/Home.html', '_blank')"
+          >
+            <i class="ri-store-2-line"></i>
+            Xem trang User
+          </button>
+          <button class="login-btn" id="loginBtn">
+            <i class="ri-login-box-line"></i>
+            Đăng nhập
+          </button>
+        </div>
+      </div>
+
       <!-- row-grid dễ quản lí cột và bảng lưới -->
       <div class="row-grid">
         <div class="admin-sidebar">
           <div class="admin-sidebar-top">
             <div class="logo-section">
               <img src="LOGO.png" alt="LOGO" />
-              <div class="logo-name">LOYAL</div>
+              <div class="logo-name">LOYAL STORE</div>
             </div>
-            <div class="admin-role"><i class="ri-admin-fill"></i> Admin</div>
           </div>
           <div class="admin-sidebar-content">
             <ul>
@@ -33,44 +57,96 @@
                 <a href=""> <i class="ri-dashboard-fill"></i>Dashboard-fill</a>
               </li>  -->
               <li>
-                <a href=""><i class="ri-user-3-fill"></i>Người dùng (Kiên)</a>
+                <a href=""><i class="ri-user-3-fill"></i>Người dùng</a>
               </li>
               <li class="has-submenu">
                 <a href=""><i class="ri-book-fill"></i>Sách</a>
                 <ul class="book-menu">
                   <li>
                     <a href=""
-                      ><i class="ri-arrow-right-wide-fill"></i>Danh mục sách (Hoàng)</a
+                      ><i class="ri-arrow-right-wide-fill"></i>Danh mục sách</a
                     >
                   </li>
                   <li>
                     <a href=""
-                      ><i class="ri-arrow-right-wide-fill"></i>Phiếu nhập sách (Thắng)</a
+                      ><i class="ri-arrow-right-wide-fill"></i>Phiếu nhập
+                      sách</a
                     >
                   </li>
                   <li>
                     <a href=""
-                      ><i class="ri-arrow-right-wide-fill"></i>Số lượng tồn kho (Thịnh)</a
+                      ><i class="ri-arrow-right-wide-fill"></i>Số lượng tồn
+                      kho</a
                     >
                   </li>
                 </ul>
               </li>
 
               <li>
-                <a href=""><i class="ri-archive-2-fill"></i>Đơn hàng (Tân)</a>
+                <a href="">
+                  <i class="ri-archive-2-fill"></i>Đơn hàng
+                  <span
+                    id="orderNotificationBadge"
+                    style="
+                      display: none;
+                      background: #ff4757;
+                      color: white;
+                      padding: 2px 8px;
+                      border-radius: 10px;
+                      font-size: 11px;
+                      margin-left: 8px;
+                    "
+                  ></span>
+                </a>
               </li>
               <li>
-                <a href=""><i class="ri-bar-chart-fill"></i>Thống kê giá bán (Thành)</a>
+                <a href=""><i class="ri-bar-chart-fill"></i>Thống kê giá bán</a>
               </li>
             </ul>
-          </div>
-          <div class="logout-section">
-            <a href="#"> <i class="ri-logout-box-r-line"></i> Đăng xuất </a>
           </div>
         </div>
         <div class="admin-content"></div>
       </div>
     </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-overlay hidden">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2>Đăng nhập Admin</h2>
+          <button class="close-modal" id="closeLoginModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="loginUsername">
+              <i class="ri-user-line"></i> Tên đăng nhập
+            </label>
+            <input
+              type="text"
+              id="loginUsername"
+              placeholder="Nhập tên đăng nhập"
+              autocomplete="username"
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">
+              <i class="ri-lock-line"></i> Mật khẩu
+            </label>
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="Nhập mật khẩu"
+              autocomplete="current-password"
+            />
+          </div>
+          <div id="loginError" class="error-message hidden"></div>
+          <button class="modal-btn-primary" id="submitLogin">
+            <i class="ri-login-box-line"></i> Đăng nhập
+          </button>
+        </div>
+      </div>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
