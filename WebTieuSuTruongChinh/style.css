@@ -181,7 +181,67 @@ footer {
     margin-top: 10px;
     letter-spacing: 1px;
 }
+/* Navigation Styling */
+.nav-bar {
+    margin-top: 30px;
+    border-top: 1px solid var(--border-tan);
+    border-bottom: 1px solid var(--border-tan);
+    padding: 10px 0;
+}
 
+.nav-bar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Khoảng cách giữa các mục */
+}
+
+.nav-bar ul li a {
+    text-decoration: none;
+    color: var(--ink);
+    font-family: 'Segoe UI', sans-serif; /* Font hiện đại để tạo sự tương phản */
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+/* Hiệu ứng Hover đường kẻ từ giữa ra */
+.nav-bar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: var(--gold-leaf);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-bar ul li a:hover {
+    color: var(--gold-leaf);
+}
+
+.nav-bar ul li a:hover::after {
+    width: 100%;
+}
+
+/* Fix lỗi mobile cho menu */
+@media (max-width: 600px) {
+    .nav-bar ul {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 0;
+    }
+    .nav-bar ul li a {
+        letter-spacing: 1px;
+    }
+}
 /* Responsive */
 @media (max-width: 768px) {
     .container { padding: 30px; }
